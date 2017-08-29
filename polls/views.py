@@ -6,6 +6,7 @@ from django.views import generic
 
 from .models import Question, Choice
 
+
 # Create your views here.
 class IndexView(generic.ListView):
     template_name = 'polls/index.html'
@@ -19,11 +20,9 @@ class IndexView(generic.ListView):
         return Question.objects.order_by('-pub_date')[:5]
 
 
-
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
-
 
 
 class ResultsView(generic.DetailView):
@@ -31,9 +30,8 @@ class ResultsView(generic.DetailView):
     template_name = 'polls/results.html'
 
 
-
 def vote(request, question_id):
-    question = get_object_or_404(Question, pk = question_id)
+    question = get_object_or_404(Question, pk=question_id)
 
     try:
         selected_choice = question.choice_set.get(pk=request.POST['choice'])
@@ -46,7 +44,4 @@ def vote(request, question_id):
     else:
         selected_choice.votes += 1
         selected_choice.save()
-        return HttpResponseRedirect(reverse('polls:results', args = (question.id,)))
-
-
-
+        return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
