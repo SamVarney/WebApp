@@ -5,7 +5,7 @@ from django.urls import reverse
 from django.views import generic
 from django.views.generic.edit import FormView
 from .forms import wikiForm
-from .models import Question, Choice, wikiPage
+from .models import Question, Choice, wikiPage, Wiki
 
 
 # Create your views here.
@@ -13,6 +13,7 @@ class IndexView(generic.ListView):
     template_name = 'polls/index.html'
 
     context_object_name = 'latest_question_list'
+
 
     def get_queryset(self):
         '''
@@ -48,8 +49,8 @@ def vote(request, question_id):
 
 
 class wikiDetailView(generic.DetailView):
-    model = wikiPage
-    # template_name = 'polls/detail.html'
+    model = Wiki
+    template_name = 'polls/wikiDetail.html'
 
 
 class wikiFormView(generic.edit.UpdateView):
@@ -58,7 +59,9 @@ class wikiFormView(generic.edit.UpdateView):
     template_name = 'polls/wikiDetail.html'
 
 
-class wikiDetailView(generic.ListView):
+'''class wikiDetailView(generic.ListView):
     model = wikiPage
     context_object_name = 'wiki_List'
     template_name = 'polls/wikipage_detail.html'
+'''
+# TODO add a page to view all of the wiki pages in a wiki (use it's index) (ListView)
