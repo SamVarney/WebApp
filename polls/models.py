@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 
 import datetime
 from django.utils import timezone
@@ -8,6 +9,7 @@ from django.db import models
 
 
 class Question(models.Model):
+
     def __str__(self):
         return self.question_text
 
@@ -17,7 +19,6 @@ class Question(models.Model):
     question_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
 
-
 class Choice(models.Model):
     def __str__(self):
         return self.choice_text
@@ -25,3 +26,28 @@ class Choice(models.Model):
     question = models.ForeignKey(Question, on_delete=models.CASCADE)
     choice_text = models.CharField(max_length=200)
     votes = models.IntegerField(default=0)
+
+
+class Wiki(models.Model):
+    def __str__(self):
+        return self.wiki_name
+
+    def wiki_Page_List(self):
+        return self.wikiPage_set()
+
+    wiki_name = models.CharField(max_length=200)
+
+
+class wikiPage(models.Model):
+    def __str__(self):
+        return self.page_name
+
+    def get_absolute_url(self):
+        return reverse('wikiPage', kwargs={'pk': self.pk})
+
+    def wiki_list(self):
+        return self.page_name
+
+    wiki = models.ForeignKey(Wiki, on_delete=models.CASCADE, default=1)
+    page_name = models.CharField(max_length=255)
+    page_text = models.TextField()

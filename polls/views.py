@@ -3,8 +3,9 @@ from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404
 from django.urls import reverse
 from django.views import generic
-
-from .models import Question, Choice
+from django.views.generic.edit import FormView
+from .forms import wikiForm
+from .models import Question, Choice, wikiPage
 
 
 # Create your views here.
@@ -23,7 +24,6 @@ class IndexView(generic.ListView):
 class DetailView(generic.DetailView):
     model = Question
     template_name = 'polls/detail.html'
-
 
 class ResultsView(generic.DetailView):
     model = Question
@@ -45,3 +45,20 @@ def vote(request, question_id):
         selected_choice.votes += 1
         selected_choice.save()
         return HttpResponseRedirect(reverse('polls:results', args=(question.id,)))
+
+
+class wikiDetailView(generic.DetailView):
+    model = wikiPage
+    # template_name = 'polls/detail.html'
+
+
+class wikiFormView(generic.edit.UpdateView):
+    model = wikiPage
+    fields = ['page_name', 'page_text']
+    template_name = 'polls/wikiDetail.html'
+
+
+class wikiDetailView(generic.ListView):
+    model = wikiPage
+    context_object_name = 'wiki_List'
+    template_name = 'polls/wikipage_detail.html'
