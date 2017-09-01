@@ -1,0 +1,29 @@
+{% if wiki_List%}
+
+<ul>
+    {% for wiki in wiki_List %}
+    <li>
+        <a href="{% url 'polls:selectWiki' wiki.id %}">{{ wiki.wiki_name }} - {{ wiki.id }} -- first for loop </a>
+    </li>
+    {% endfor %}
+</ul>
+
+
+{% elif wiki_pageList %}
+<p>Index for wiki pages!</p>
+{% for wikipage in wiki_pageList %}
+<li>
+    <a href="{% url 'polls:wikiDetail' wikipage.id %}"> {{ wikipage.page_name }} - Detail for loop </a>
+</li>
+{% endfor %}
+
+
+{% else %}
+<p>No Index available</p>
+
+
+{% endif %}
+
+
+<a href="{% url 'polls:wikiIndex' %}"> All Wikis </a>
+
