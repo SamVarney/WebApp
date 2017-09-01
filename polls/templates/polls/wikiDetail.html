@@ -1,5 +1,25 @@
-<form action="" method="post">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save Edit"/>
+<h1>{{wiki.wiki_name}} Detail Page </h1>
+
+
+<form action="{% url 'polls:selectWiki' wiki.id %}" method="post">
+    {% csrf_token %}
+    {% for page in wiki.wikipage_set.all %}
+    <li>
+        <a href="{% url 'polls:wikiPage' page.id %}"> {{page.page_name}} </a>
+    </li>
+    {% endfor %}
 </form>
 
+{% for page in wiki.wikipage.set.all%}
+<li>
+    <a href="{% url 'polls:selectWiki' page.id %}">{{ page.page_name }} </a>
+</li>
+{% endfor %}
+
+<p>
+    Links:
+<li>
+    <a href="{% url 'polls:wikiIndex' %}"> All Wikis </a>,
+</li>
+
+</p>

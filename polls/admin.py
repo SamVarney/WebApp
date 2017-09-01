@@ -14,7 +14,6 @@ class wikiPageInline(admin.StackedInline):
 class WikiAdmin(admin.ModelAdmin):
     fieldsets = [
         (None, {'fields': ['wiki_name']}),
-
     ]
     inlines = [wikiPageInline]
 

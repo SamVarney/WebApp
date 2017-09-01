@@ -33,6 +33,8 @@ class Wiki(models.Model):
         return self.wiki_name
 
     def wiki_Page_List(self):
+        print("wiki page list method")
+        print(self.wikiPage_set())
         return self.wikiPage_set()
 
     wiki_name = models.CharField(max_length=200)
