@@ -37,7 +37,13 @@ class Wiki(models.Model):
         print(self.wikiPage_set())
         return self.wikiPage_set()
 
-    wiki_name = models.CharField(max_length=200)
+    def get_absolute_url(self):
+        from django.urls import reverse
+        return reverse('people.views.details', args=[str(self.id)])
+
+    wiki_name = models.CharField(max_length=200, unique=True)
+    wiki_purpose = models.TextField(default='')
+
 
 
 class wikiPage(models.Model):
@@ -51,5 +57,10 @@ class wikiPage(models.Model):
         return self.page_name
 
     wiki = models.ForeignKey(Wiki, on_delete=models.CASCADE, default=1)
-    page_name = models.CharField(max_length=255)
+    page_name = models.CharField(max_length=255, unique=True)
     page_text = models.TextField()
+
+
+class ToDo(models.Model):
+    # TODO create todo list model
+    todo_name = models.CharField(max_length=200, unique=True)

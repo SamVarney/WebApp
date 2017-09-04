@@ -3,14 +3,14 @@
 <ul>
     {% for wiki in wiki_List %}
     <li>
-        <a href="{% url 'polls:selectWiki' wiki.id %}">{{ wiki.wiki_name }} - {{ wiki.id }} -- first for loop </a>
+        <a href="{% url 'polls:selectWiki' wiki.id %}">{{ wiki.wiki_name }} </a>
     </li>
     {% endfor %}
 </ul>
 
 
 {% elif wiki_pageList %}
-<p>Index for wiki pages!</p>
+<p>Index for wiki pages! Context is wiki_pagelist</p>
 {% for wikipage in wiki_pageList %}
 <li>
     <a href="{% url 'polls:wikiDetail' wikipage.id %}"> {{ wikipage.page_name }} - Detail for loop </a>
@@ -24,6 +24,9 @@
 
 {% endif %}
 
+<li>
+    <a href="{% url 'polls:wikiIndex' %}"> All Wikis </a>
+</li>
 
-<a href="{% url 'polls:wikiIndex' %}"> All Wikis </a>
+<li><a href="{% url 'polls:createWiki' %}">Create New Wiki</a></li>
 

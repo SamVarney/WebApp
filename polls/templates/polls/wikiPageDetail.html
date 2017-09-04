@@ -1,20 +1,34 @@
-<h1> wiki Form view</h1>
+<!DOCTYPE html>
+<html>
+<body>
+<h1>
+    Editing -- {{ form.page_name.value }}
+</h1>
 
 
-<form>
+<form method="post" action=" ">
+
     {% csrf_token %}
-    {{ form }}
-    {{ page.page_name }}
-    <input type="submit" value="Submit"/>
+    {% for hidden in form.hidden_fields %}
+    {{ hidden }}
+    {% endfor %}
+
+    {% for field in form.visible_fields %}
+    <p>
+        {{ field.errors }}
+        {{ field.help_text }}
+        {% if field == 'page_name' %}
+        {{ field.text }}
+        {% else %}
+        {{ field }}
+        {% endif %}
+    </p>
+    {% endfor %}
+
+    <input type="submit" name="submit" value="Save Edits"/>
 </form>
+</body>
 
-<p>
-    {{wikiPage.id}}
-</p>
-
-<h4>Links</h4>
-<li>
-    <a href="{% url 'polls:wikiIndex' %}"> All Wikis </a>
-</li>
+</html>
 
 

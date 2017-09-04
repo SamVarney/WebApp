@@ -1,4 +1,11 @@
-<h1>{{wiki.wiki_name}} Detail Page </h1>
+<h1>{{wiki.wiki_name}} Detail Page - WikiDetail view </h1>
+
+
+<h2> Wiki Purpose: </h2>
+<p>
+    <textarea readonly=True>{{ wiki.wiki_purpose }}</textarea>
+</p>
+
 
 
 <form action="{% url 'polls:selectWiki' wiki.id %}" method="post">
@@ -19,7 +26,10 @@
 <p>
     Links:
 <li>
-    <a href="{% url 'polls:wikiIndex' %}"> All Wikis </a>,
+    <a href="{% url 'polls:wikiIndex' %}"> All Wikis </a>
+</li>
+<li>
+    <a href="{% url 'polls:createWikiPage' wiki.id %}">Create New Page</a>
 </li>
 
 </p>
